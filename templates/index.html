@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Amiel's Bio</title>
+{% endblock %}
+
+{% block body %}
+<h2> Amiel Kollek's Webpage </h2>
+
+<div class='panel'>
+  <p>
+    Hello, my name is Amiel. I study math and physics at McGill university and I am going to make my own website!
+  </p>
+</div>
+
+<h4> My Interests </h4>
+
+<p> Here are a few things I like: </p>
+
+<div class="large-3 columns">
+  <h5> Computers </h5>
+  <p>
+    I like programming!
+  </p>
+</div>
+
+<div class="large-3 columns">
+  <h5> Math </h5>
+  <p>
+    Math is fun!
+  </p>
+</div>
+
+<div class="large-3 columns">
+  <h5> Hiking </h5>
+  <p>
+    I like the outdoors
+  </p>
+</div>
+
+<div class="large-3 columns">
+  <h5> Physics </h5>
+  <p>
+    <em>E=mc<sup>2</sup></em>
+  </p>
+</div>
+
+<h4>Leave me a message</h4>
+
+<p>
+  You can leave me a message below, or see messages people have left me <a href="{{ url_for('messages') }}">here</a>
+</p>
+
+<div class="large-8 columns">
+<form action="/submit_message" method="post">
+  <input type="text" placeholder="Name" name="who">
+  <textarea placeholder="Enter your message here" name="message" cols="50" rows="4"></textarea>
+  <input type="submit" value="Submit">
+</form>
+</div>
+{% endblock %}
