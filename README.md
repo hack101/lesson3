@@ -68,6 +68,8 @@ Hopefully you've started to get the impression that the fundamental functionalit
 
 Broadly, Flask will make it easy to do two things: handle requests users make for different parts of our website, and render a webpage based on data we store in a database. For a database, we will use Firebase, which provides an easy way to store and access data. Other popular databases include various SQL implementations, and so-called "no-SQL" databases, which are often based on simple key-value storage.
 
+### Setting up
+
 So naturally, our first step will be signing up for Firebase. You can do that for free [here](https://www.firebase.com/signup/), and when you are logged in you will already have a database ready for you to use, with a randomly-generated name - mine is "fiery-torch-8827.firebaseio.com", for example. We will use this when we develop our application.
 
 Next, we will need to install Flask and other necessary dependencies. I will assume you have pip installed; if you are using a Trottier computer, pip will already be installed, but you will need to run [this shell script](https://github.com/hack101/lesson3/blob/master/setup.sh) to allow yourself to install packages. One easy way to do this is with the following command:
@@ -78,19 +80,92 @@ This downloads the script and runs it on your computer. You do not need to do th
 
 As for the packages, we will be using these packages:
 
-````
+```
 Flask
 requests
 python-firebase
-````
+```
 
 You can install each one by typing `pip install Flask`, `pip install requests`, and `pip install python-firebase`, or by downloading [this file](https://raw.githubusercontent.com/hack101/lesson3/master/packages.txt) and running `pip install -r FILENAME` where `FILENAME` is what you called the downloaded file. Or, you can type in the following two lines:
 
-````
+```
 curl https://raw.githubusercontent.com/hack101/lesson3/master/packages.txt > packages.txt
 sudo pip install -r packages.txt
-````
+```
 
 If you are using a Trottier computer you do not need "sudo".
 
-Now we are all set to start developing our application.
+### Organizing our application
+
+Now we are all set to start developing our application. Let's begin by creating a new folder for our project, called `lesson3`, and inside of it we will add two folders: `static` and `templates`. The `static` folder will hold any assets that we want to be able to access, such as CSS and Javascript files. The other folder, `templates`, will hold our *templates*, which will specify how we want the pages on our website to look. Before, we used HTML files to represent the structure of our pages. Our templates are special types of HTML files, which can include variables which our Python application will fill in. More on this soon.
+
+The logic behind our application will be in a file called `app.py`, which will sit inside of `lesson3`. So make an empty file called `app.py`, and now our directory structure should look like this:
+
+![Folder structure](http://i.imgur.com/lCDA1wu.png)
+
+Let's get a sort of "hello world" going with Flask. Inside `app.py`, we will add the following code:
+
+```python
+from flask import Flask
+
+# config
+# server will reload on source changes, and provide a debugger for errors
+DEBUG = True
+
+app = Flask(__name__)
+app.config.from_object(__name__) # consume the configuration above
+
+# decorator which tells flask what url triggers this fn
+@app.route('/')
+def index():
+  return 'Hello world'
+
+# start the application if this is the main python module (which it is)
+if __name__ == "__main__":
+  app.run()
+```
+
+If we save this file, and in another terminal window type `python app.py`, we should get the following output:
+```
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+```
+
+If we open a browser and go to http://127.0.0.1:5000/, we should see "Hello world". Yay! Let's look at what we've done, piece by piece. The first part of the file is
+
+```python
+from flask import Flask
+```
+
+This imports the flask module with the name `Flask`, allowing us to use it. We can do this because we installed Flask with pip earlier.
+
+```python
+# config
+# server will reload on source changes, and provide a debugger for errors
+DEBUG = True
+
+app = Flask(__name__)
+app.config.from_object(__name__) # consume the configuration above
+```
+
+This part of the file does two things: first, we set a configuration open, `DEBUG`, to be true. This will make it easier to develop our app, because if we are running `app.py`, we can make changes to the file and the running version will update itself without needing a manual restart. Then, we make a new app, called `app`, and tell it to read the configuration in `__name__`, which is just this file itself. If we put our configuration in another file, we would tell Flask to look in that file instead.
+
+```python
+# decorator which tells flask what url triggers this fn
+@app.route('/')
+def index():
+  return 'Hello world'
+```
+
+This is the interesting part. `def` is how you declare a function in Python. So we create a function called `index()` which just returns 'Hello world'. What is above the function? The line `@app.route('/')` means that when a request for "/" is made (remember, "/" is the highest-level part of our website - when you go to "google.com/" you are requesting "/" from google.com), Flask will run the function `index()`. This is how we handle requests with Flask - for each request we want to handle, we create a function like `index()` and above it we use a [decorator](http://thecodeship.com/patterns/guide-to-python-function-decorators/) to tell Flask to run this function for a certain request. The function will return the HTML for the page we want to show for that request. In this case, we are only returning 'Hello world', which we can see if we look at the source for the page at http://127.0.0.1:5000/.
+
+![source](http://i.imgur.com/8YSWEDl.png)
+
+Finally, the last piece of the file starts the application:
+
+```python
+# start the application if this is the main python module (which it is)
+if __name__ == "__main__":
+  app.run()
+```
+
