@@ -44,18 +44,4 @@
     <em>E=mc<sup>2</sup></em>
   </p>
 </div>
-
-<h4>Leave me a message</h4>
-
-<p>
-  You can leave me a message below, or see messages people have left me <a href="{{ url_for('messages') }}">here</a>
-</p>
-
-<div class="large-8 columns">
-<form action="/submit_message" method="post">
-  <input type="text" placeholder="Name" name="who">
-  <textarea placeholder="Enter your message here" name="message" cols="50" rows="4"></textarea>
-  <input type="submit" value="Submit">
-</form>
-</div>
 {% endblock %}
