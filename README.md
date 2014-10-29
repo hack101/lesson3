@@ -68,6 +68,16 @@ Hopefully you've started to get the impression that the fundamental functionalit
 
 Broadly, Flask will make it easy to do two things: handle requests users make for different parts of our website, and render a webpage based on data we store in a database. For a database, we will use Firebase, which provides an easy way to store and access data. Other popular databases include various SQL implementations, and so-called "no-SQL" databases, which are often based on simple key-value storage.
 
+### Starter package
+
+To make things easier, I've created a sort of "starter package" which has the files and folders you will need, missing the essential things we will cover. You can download it by running
+
+`git clone -b starter https://github.com/hack101/lesson3.git`
+
+This will create a `lesson3` folder in whatever directory you run this command. Inside this folder will be two folders, an empty `app.py` file, a shell script `setup.sh` which is explained in the next section, and a list of packages you will need for this lesson. The folder `static` includes Foundation, which we introduced before, and in `templates` there are 3 files which we will use. The file `index.html` is based on Amiel's webpage which he created in the last lesson.
+
+You can start from scratch if you'd like to as well - this lesson will cover everything you need to do to start from scratch.
+
 ### Setting up
 
 So naturally, our first step will be signing up for Firebase. You can do that for free [here](https://www.firebase.com/signup/), and when you are logged in you will already have a database ready for you to use, with a randomly-generated name - mine is like "fiery-torch-12341234.firebaseio.com", for example. We will use this when we develop our application.
@@ -76,7 +86,7 @@ Next, we will need to install Flask and other necessary dependencies. I will ass
 
 `curl https://raw.githubusercontent.com/hack101/lesson3/master/setup.sh | sh`
 
-This downloads the script and runs it on your computer. You do not need to do this if you are using your own computer.
+This downloads the script and runs it on your computer. You do not need to do this if you are using your own computer. If you downloaded the starter packages, `setup.sh` is already there, and you can simply type `sh setup.sh` to run it.
 
 As for the packages, we will be using these packages:
 
@@ -93,7 +103,7 @@ curl https://raw.githubusercontent.com/hack101/lesson3/master/packages.txt > pac
 sudo pip install -r packages.txt
 ```
 
-If you are using a Trottier computer you do not need "sudo".
+If you are using a Trottier computer you do not need "sudo". The starter package also includes this packages file, so if you downloaded that you only need to run `sudo pip install -r packages.txt`.
 
 ### Organizing our application
 
@@ -308,6 +318,8 @@ Let's do something we couldn't do before. We are going to add a comment box to t
 </form>
 </div>
 ```
+
+If you downloaded the starter package, you still need to add this to the "index.html`" file.
 
 Note that this includes `url_for('messages')`, so let's add a function to show the messages page too: in `app.py`, add the following stuff after the end of the `index()` function:
 
