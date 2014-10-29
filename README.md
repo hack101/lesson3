@@ -128,7 +128,7 @@ app.config.from_object(__name__) # consume the configuration above
 # decorator which tells flask what url triggers this fn
 @app.route('/')
 def index():
-  return 'Hello world'
+  return '<p>Hello world</p>'
 
 # start the application if this is the main python module (which it is)
 if __name__ == "__main__":
@@ -158,16 +158,16 @@ app = Flask(__name__)
 app.config.from_object(__name__) # consume the configuration above
 ```
 
-This part of the file does two things: first, we set a configuration open, `DEBUG`, to be true. This will make it easier to develop our app, because if we are running `app.py`, we can make changes to the file and the running version will update itself without needing a manual restart. Then, we make a new app, called `app`, and tell it to read the configuration in `__name__`, which is just this file itself. If we put our configuration in another file, we would tell Flask to look in that file instead.
+This part of the file does two things: first, we set a configuration open, `DEBUG`, to be true. This will make it easier to develop our app, because if we are running `app.py`, we can make changes to the file and the running version will update itself without needing a manual restart. Then, we make a new app, called `app`, and tell it to read the configuration in `__name__`, which is just this file itself (`__name__` is a reserve variable in python which the python interpreter sets to be the name of the file or module in which it is reading). If we put our configuration in another file, we would tell Flask to look in that file instead.
 
 ```python
 # decorator which tells flask what url triggers this fn
 @app.route('/')
 def index():
-  return 'Hello world'
+  return '<p>Hello world</p>'
 ```
 
-This is the interesting part. `def` is how you declare a function in Python. So we create a function called `index()` which just returns 'Hello world'. What is above the function? The line `@app.route('/')` means that when a request for "/" is made (remember, "/" is the highest-level part of our website - when you go to "google.com/" you are requesting "/" from google.com), Flask will run the function `index()`. This is how we handle requests with Flask - for each request we want to handle, we create a function like `index()` and above it we use a [decorator](http://thecodeship.com/patterns/guide-to-python-function-decorators/) to tell Flask to run this function for a certain request. The function will return the HTML for the page we want to show for that request. In this case, we are only returning 'Hello world', which we can see if we look at the source for the page at http://127.0.0.1:5000/.
+This is the interesting part. `def` is how you declare a function in Python. So we create a function called `index()` which just returns a string of HTML (in this case, '<p>Hello world</p>'). What is above the function? The line `@app.route('/')` means that when a request for "/" is made (remember, "/" is the highest-level part of our website - when you go to "google.com/" you are requesting "/" from google.com), Flask will run the function `index()`. This is how we handle requests with Flask - for each request we want to handle, we create a function like `index()` and above it we use a [decorator](http://thecodeship.com/patterns/guide-to-python-function-decorators/) to tell Flask to run this function for a certain request. The function will return the HTML for the page we want to show for that request. In this case, we are only returning 'Hello world', which we can see if we look at the source for the page at http://127.0.0.1:5000/.
 
 ![source](http://i.imgur.com/16oSW1h.png)
 
