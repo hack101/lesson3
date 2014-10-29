@@ -101,7 +101,7 @@ Now we are all set to start developing our application. Let's begin by creating 
 
 The logic behind our application will be in a file called `app.py`, which will sit inside of `lesson3`. So make an empty file called `app.py`, and now our directory structure should look like this:
 
-![Folder structure](http://i.imgur.com/lCDA1wu.png)
+![Folder structure](http://i.imgur.com/sKmzkPA.png)
 
 Let's get a sort of "hello world" going with Flask. Inside `app.py`, we will add the following code:
 
@@ -159,7 +159,7 @@ def index():
 
 This is the interesting part. `def` is how you declare a function in Python. So we create a function called `index()` which just returns 'Hello world'. What is above the function? The line `@app.route('/')` means that when a request for "/" is made (remember, "/" is the highest-level part of our website - when you go to "google.com/" you are requesting "/" from google.com), Flask will run the function `index()`. This is how we handle requests with Flask - for each request we want to handle, we create a function like `index()` and above it we use a [decorator](http://thecodeship.com/patterns/guide-to-python-function-decorators/) to tell Flask to run this function for a certain request. The function will return the HTML for the page we want to show for that request. In this case, we are only returning 'Hello world', which we can see if we look at the source for the page at http://127.0.0.1:5000/.
 
-![source](http://i.imgur.com/8YSWEDl.png)
+![source](http://i.imgur.com/16oSW1h.png)
 
 Finally, the last piece of the file starts the application:
 
@@ -331,7 +331,7 @@ def messages():
 
 Now we can go to http://127.0.0.1:5000/messages and get a page. We also added a form to the bottom of the page:
 
-![form]()
+![form](http://i.imgur.com/pvAKzzF.png)
 
 Looking at the HTML for the form, we have this: `<form action="/submit_message" method="post">`. This specifies what to do with the stuff in our form when the user clicks the submit button. It says when submit is clicked, the page will make a POST request to the URL "/submit_message". The content of the post request will be the data the user typed into the form.
 
@@ -348,7 +348,7 @@ def submit_message():
 
 This says that when a POST request (and only a POST request) is made to the URL "/submit_message", we will print the contents of the form to the Python console, and then redirect to our messages page. After saving `app.py` with these new lines, we can click the submit button, and we will be redirected to the messages page. Try filling out the form and submitting it, and look at the terminal window you're running the app in. You should see it print out what you typed in the form!
 
-![Terminal output]()
+![Terminal output](http://i.imgur.com/kN3z0uK.png)
 
 ### Hooking up our database
 
